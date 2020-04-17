@@ -1,0 +1,58 @@
+.el-tabs__nav-wrap::after{
+  background: inherit;
+}
+.el-tabs__nav{
+  padding: 15px 0;
+  width: 80%;
+  margin: auto;
+}
+.el-tabs{
+  height: 100%;
+}
+.el-tabs--left .el-tabs__item.is-left{
+  margin-bottom: 10px;
+  color: #fff;
+  text-align: center;
+  background:url("../images/text_bg.png") no-repeat ;
+  background-size: 100% 100%;
+}
+.el-tabs--left .el-tabs__item.is-active{
+  color: #fff;
+  background:url("../images/btn_bg.png") ;
+}
+.el-tabs__header{
+  width: 15%;
+  border:1px solid #1b93a0;
+}
+.el-tabs__content{
+  height: 100%;
+  padding: 20px;
+  border:1px solid #1b93a0;
+}
+.el-tabs__active-bar{
+  display: none;
+}
+.el-table{
+  background: inherit;
+  color: #fff;
+}
+.el-table th, .el-table tr{
+  background: inherit;
+  color: #fff;
+}
+.el-table td, .el-table th.is-leaf{
+  /*border-bottom: 1px dashed #fff;*/
+}
+.el-table__row:hover {
+  color: #000;
+}
+table{
+  width: 100%;
+}
+.el-pagination__total,.el-pagination__jump{
+  color: #fff;
+}
+.el-table__empty-text{
+  color: #fff;
+}
+

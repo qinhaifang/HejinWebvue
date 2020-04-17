@@ -1,0 +1,67 @@
+/*字体颜色 #ffba15*/
+/*背景颜色 #0d203c*/
+/*淡蓝色   #11c9fd*/
+/*边框颜色  #1b93a0*/
+/*蓝色线条  #4B68D0*/
+/*黑色字体颜色  #606266*/
+@font-face {
+  font-family: 'pingFangSC-Medium';
+  src: url('font/PingFang.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  height: 100%;
+  font-size: 16px;
+  background: #0d203c;
+  color: #fff;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif,pingFangSC-Medium;
+}
+*{margin:0;padding:0;}
+html,body,footer,button,div,dd,dt,dl,a,b,i,em,form,h1,h2,h3,h4,h5,h6,input,label,li,nav,p,select,span,td,textarea,ul,li { padding: 0; margin: 0;list-style: none}
+@media all and (-webkit-min-device-pixel-ratio:0){
+  .demo{
+    font-size:0;
+  }
+}
+.left{
+  float: left;
+}
+.right{
+  float: right;
+}
+.center{
+  text-align: center;
+}
+.text-left{
+  text-align: left;
+  padding-left: 10px;
+}
+.text-letter{
+  letter-spacing: 2px;
+}
+.color-y{
+  color: #ffba15;
+}
+.empty{
+  height: 10px;
+}
+.clear{
+  clear: both;
+}
+.border{
+  border:1px solid #1b93a0;
+}
+.blueBox{
+  display: inline-block;
+  width: 4px;
+  height: 16px;
+  background: #2ECBF3;
+  margin-right: 10px;
+}
+.p20{
+  padding: 20px 0;
+}
