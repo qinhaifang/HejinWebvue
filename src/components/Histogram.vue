@@ -20,7 +20,10 @@ import echarts from 'echarts'
         }
       },
       methods:{
+//        Object.assign({},this.chartData)
+//        解决Vue __ob__: Observer
         drawLine(){
+          console.log('子组件',this.chartData)
           const vm = this;
           let myChart = echarts.init(this.$refs.myChart);
           // 绘制图表
@@ -115,7 +118,7 @@ import echarts from 'echarts'
                   width:1,//这里是为了突出显示加上的，可以去掉
                 }
               },
-              data: this.chartData.yData
+              data: Object.assign({},this.chartData).yData
             },
             yAxis: {
               splitLine:{
@@ -167,8 +170,7 @@ import echarts from 'echarts'
               },
               barWidth: 20,  // 柱形的宽度
               barCategoryGap: '20%',  // 柱形的间距
-              data:this.chartData.data
-//              data: this.chartData.data.data1
+              data:Object.assign({},this.chartData).data
             }]
           });
         }

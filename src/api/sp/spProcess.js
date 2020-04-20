@@ -3,10 +3,21 @@
  */
 import request from '@/utils/request'
 
+
+//审批流程
+export function sp(type){
+  return request({
+    url:'/pt/approval/list',
+    method:'get',
+    params:type
+  })
+}
 //type = 1  领导关注
+//type = 3
+//type = 5  工作亮点
 //type = 6  学习交流
 //type = 7  政策法规
-//审批流程
+//
 export function spProcess(params){
   params = JSON.parse(JSON.stringify(params));
   return request({
@@ -32,5 +43,12 @@ export function spProgress(params){
     url:'/pt/progress/list',
     method:'get',
     params:params
+  })
+}
+//工作亮点
+export function spWork(id){
+  return request({
+    url:'/pt/information/'+id,
+    method:'get',
   })
 }

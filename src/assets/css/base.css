@@ -89,3 +89,8 @@ html,body,footer,button,div,dd,dt,dl,a,b,i,em,form,h1,h2,h3,h4,h5,h6,input,label
 .search-border .el-form{
   padding: 5px 0;
 }
+
+/*.desc p ,.desc span{*/
+  /*display: block;*/
+  /*text-align: justify;*/
+/*}*/

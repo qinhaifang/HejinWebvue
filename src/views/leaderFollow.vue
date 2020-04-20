@@ -7,7 +7,7 @@
             <p><span class="blueBox"></span>领导调研</p>
             <el-table
               :data="tableData"
-              style="width: 100%">
+              style="width: 100%" :loading="loading">
               <template >
                 <el-table-column type="index" prop="" label="序号" width="60"></el-table-column>
                 <el-table-column prop="title" label="标题" width=""></el-table-column>
@@ -58,7 +58,7 @@
             <p><span class="blueBox"></span>动态信息</p>
             <el-table
               :data="tableData"
-              style="width: 100%">
+              style="width: 100%" @row-click="rowClick">
               <template v-for="(item,index) in tableHeader" >
                 <el-table-column v-if="index==0" :align="item.align" type="index" :prop="item.prop" :label="item.name" :width="item.width" :key="index" ></el-table-column>
                 <el-table-column  v-else :prop="item.prop" :align="item.align" :label="item.name" :width="item.width" :key="index" show-overflow-tooltip></el-table-column>
@@ -91,6 +91,7 @@
        },
       data(){
         return{
+          loading:false,
           activeName:'1',
           tabPosition: 'left',
           tableHeader:[
@@ -116,7 +117,7 @@
       },
       methods:{
         rowClick(row){
-          this.$router.push({name:'publicPage',params:{id:row.id}})
+          this.$router.push({name:'publicPage',params:{id:row.id,type:'leaderFollow'}})
 //          console.log(row.id)
         },
         openClick(scope){
@@ -133,7 +134,6 @@
         handleClick(row) {
           this.queryParams.type = this.activeName;
           this.getTable();
-          console.log(row,this.activeName);
         },
         getTable(){
           this.loading = true;

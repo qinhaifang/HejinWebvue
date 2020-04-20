@@ -5,10 +5,15 @@
 </template>
 
 
-<script>
+<script type="text/ecmascript-6">
   import echarts from 'echarts'
   export default{
-    props:[],
+    props:{
+      pieChart:{
+        type:Array,
+        default: ()=>[]
+      }
+    },
     mounted(){
       this.drawLine()
     },
@@ -62,7 +67,7 @@
             // itemGap设置各个item之间的间隔，单位px，默认为10，横向布局时为水平间隔，纵向布局时为纵向间隔
             itemGap: 30,
 //            backgroundColor: '#eee',  // 设置整个图例区域背景颜色
-            data: ['直接访问', '邮件营销']
+            data: ['累计完成投资', '全年计划投资']
           },
           series: [{
             name: '',
@@ -70,11 +75,8 @@
             legendHoverLink:true,// 是否启用图列 hover 时的联动高亮
             radius: '50%',
 //            radius: ['30%', '60%'],  // 设置环形饼状图， 第一个百分数设置内圈大小，第二个百分数设置外圈大小
-            center: ['50%', '40%'],
-            data: [
-              {value: 335, name: '直接访问'},
-              {value: 310, name: '邮件营销'}
-            ],
+            center: ['50%', '50%'],
+            data: this.pieChart,
             emphasis: {
               // emphasis：英文意思是 强调;着重;（轮廓、图形等的）鲜明;突出，重读
               // emphasis：设置鼠标放到哪一块扇形上面的时候，扇形样式、阴影

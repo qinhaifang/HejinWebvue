@@ -15,6 +15,11 @@
 
 </script>
 <style scoped>
+  .img-left-top{
+    position: absolute;
+    left: 0;
+
+  }
   .img-right-top{
     position: absolute;
     right: 0;

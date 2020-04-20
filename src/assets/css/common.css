@@ -85,7 +85,10 @@ table{
   width: inherit;
 }
 .el-message-box{
-  width: 80% ;
-  height: 80%;
+  width: 90% ;
+  /*height: 90%;*/
   overflow: auto;
+}
+.contents p img{
+  width: 100%;
 }

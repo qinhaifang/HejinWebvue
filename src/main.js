@@ -10,11 +10,16 @@ import store from './store'
 
 import elementUI from  'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(elementUI);
+
+import Viewer from 'v-viewer'
+import 'viewerjs/dist/viewer.css'
+Vue.use(Viewer);
 
 import '@/assets/css/base.css'
 import '@/assets/css/common.css'
 
-Vue.use(elementUI);
+
 Vue.config.productionTip = false
 router.beforeEach((to, from, next) => {
   //debugger

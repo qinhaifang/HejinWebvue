@@ -23,6 +23,7 @@ export default new Router({
       name:'home',
       component: resolve => require(['../views/index.vue'],resolve),
       children:[
+        //{path: '*', redirect: '../views/ztgk/ztgk.vue'},
         {
           path: '/ztgk',
           component: resolve => require(['../views/ztgk/ztgk.vue'],resolve),
@@ -51,7 +52,10 @@ export default new Router({
         {
           path: '/leaderFollow',
           component: resolve => require(['../views/leaderFollow.vue'],resolve),
-          meta: {title: '领导关注'}
+          meta: {
+            title: '领导关注',
+            keepAlive: true //此组件需要被缓存}
+          }
         },
         {
           path: '/projectLedger',
@@ -187,7 +191,13 @@ export default new Router({
           path: '/publicPage',
           name:'publicPage',
           component: resolve => require(['../views/publicPage.vue'],resolve),
-          meta: {title: '公共详情页面'}
+          meta: {title: '公共详情页面', keepAlive: true}
+        },
+        {
+          path: '/imgDemo',
+          name:'imgDemo',
+          component: resolve => require(['../views/imgDemo.vue'],resolve),
+          meta: {title: '图片放大', keepAlive: true}
         }
       ],
       hidden:true
