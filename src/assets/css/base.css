@@ -4,6 +4,15 @@
 /*边框颜色  #1b93a0*/
 /*蓝色线条  #4B68D0*/
 /*黑色字体颜色  #606266*/
+/*table
+ 序号50
+ 内容和名称300
+ 7个字160
+ 10,11 （200）
+ 4个字 （地点） 200   160
+ 6个字  140
+ 日期  120
+ */
 @font-face {
   font-family: 'pingFangSC-Medium';
   src: url('font/PingFang.ttf');
@@ -64,4 +73,19 @@ html,body,footer,button,div,dd,dt,dl,a,b,i,em,form,h1,h2,h3,h4,h5,h6,input,label
 }
 .p20{
   padding: 20px 0;
+}
+.pl20{
+  padding: 0 20px;
+}
+.search-border{
+  margin-bottom: 8px;
+  border:1px solid #9caaf2;
+}
+.search-border p{
+  padding: 10px;
+  font-weight: 700;
+  border-bottom: 1px dashed #9caaf2;
+}
+.search-border .el-form{
+  padding: 5px 0;
 }

@@ -46,6 +46,10 @@
 .el-table__row:hover {
   color: #000;
 }
+.el-table__body tr.hover-row>td{
+  color: #fff;
+  background:#16427d;
+}
 table{
   width: 100%;
 }
@@ -55,4 +59,33 @@ table{
 .el-table__empty-text{
   color: #fff;
 }
-
+.search-border .el-form-item{
+  float: left;
+  width: 16%;
+  padding-right: 15px;
+  margin-bottom: 0;
+}
+.search-border  .el-form-item__label{
+  color: #fff;
+}
+.search-border .el-input__inner{
+  background: #16427d;
+  color: #fff;
+  border: 0;
+}
+.search-border .el-button--primary{
+  background: #16427d;
+  border-color: #16427d;
+}
+.el-button--primary:focus,.el-button--primary:hover{
+  background: #1a57a9;
+  border-color: #1a57a9;
+}
+.el-date-editor.el-input, .el-date-editor.el-input__inner{
+  width: inherit;
+}
+.el-message-box{
+  width: 80% ;
+  height: 80%;
+  overflow: auto;
+}

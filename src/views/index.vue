@@ -46,7 +46,7 @@
     height: 100%;
   }
   .content{
-    padding: 0 40px;
+    padding: 10px 20px;
     height: 100%;
   }
 

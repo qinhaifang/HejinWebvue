@@ -16,34 +16,19 @@ import '@/assets/css/common.css'
 
 Vue.use(elementUI);
 Vue.config.productionTip = false
-router.beforeEach((to,from,next)=>{
-  if(to.matched.some( m => m.meta.auth)) {
-    // console.log("先判断是否登录");
-    if(to.name=='Login'){
-      next();
-    }else{
-      if(localStorage.getItem('token')){
-        //访问服务器缓存数据，判断当前token是否失效
-        next('/login');
-        //Vue.http.get("http:xxxx/Login/UserIsLogin?token="+localStorage.getItem('token')+"&url="+to.name,{withCredentials: true}).then(response => response.json()).then(num => {
-        //  // console.log('是否登录',num);
-        //  if(num.code==1001){
-        //    next();
-        //  }else{
-        //    alert('您的token已超时，请重新登录');
-        //    next('/Login');
-        //  }
-        //})
-      }else{
-        next('/login');
-      }
-
-    }
+router.beforeEach((to, from, next) => {
+  //debugger
+  if (to.path === '/login') {
+    next();
   } else {
-    console.log("请先登录");
-    next()
+    let token = sessionStorage.getItem('token');
+    if (!token) {
+      next();
+    } else {
+      next();
+    }
   }
-})
+});
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

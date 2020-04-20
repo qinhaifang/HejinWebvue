@@ -22,6 +22,7 @@ const user ={
       const password = userInfo.password
       return new Promise((resolve,reject) =>{
         login(username,password).then(res =>{
+          localStorage.setItem('token',res.data.token)
           //setToken(res.data.token)
           //commit('SET_NAME','')
           commit('SET_TOKEN', res.data.token)

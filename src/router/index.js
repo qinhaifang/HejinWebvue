@@ -12,23 +12,16 @@ Router.prototype.goBack = function(){
 export default new Router({
   mode:'history',
   routes: [
-    //{
-    //  path:'/redirect',
-    //  component:Layout,
-    //  hidden:true,
-    //  children:[
-    //    {
-    //      path:'./redirect/:path*',
-    //      component:() => import('@/views/redirect')
-    //    }
-    //  ]
-    //},
-    ,
+    {
+      path: '/login',
+      name:'login',
+      component: resolve => require(['../views/login.vue'],resolve),
+      hidden:true
+    },
     {
       path: '/',
       name:'home',
       component: resolve => require(['../views/index.vue'],resolve),
-      // component: resolve => require(['../views/leaderFollow.vue'],resolve),
       children:[
         {
           path: '/ztgk',
@@ -57,7 +50,7 @@ export default new Router({
         },
         {
           path: '/leaderFollow',
-          component: resolve => require(['../views/ztgk/leaderFollow.vue'],resolve),
+          component: resolve => require(['../views/leaderFollow.vue'],resolve),
           meta: {title: '领导关注'}
         },
         {
@@ -190,17 +183,13 @@ export default new Router({
           component: resolve => require(['../views/learning.vue'],resolve),
           meta: {title: '学习交流'}
         },
-
-
-
-
+        {
+          path: '/publicPage',
+          name:'publicPage',
+          component: resolve => require(['../views/publicPage.vue'],resolve),
+          meta: {title: '公共详情页面'}
+        }
       ],
-      hidden:true
-    },
-    {
-      path: '/login',
-      name:'login',
-      component: resolve => require(['../views/login.vue'],resolve),
       hidden:true
     }
   ]

@@ -21,6 +21,7 @@
 
 <!--<script type=“text/ecmascript-6”>-->
 <script type="text/ecmascript-6">
+  import {login} from '@/api/login'
     export default{
       name:"Login",
       data(){
@@ -47,25 +48,24 @@
             if(valid){
               this.loading = true;
               if(this.loginForm.rememberMe){
-//                Cookies.set("username", this.loginForm.username, { expires: 30 });
-//                Cookies.set("password", encrypt(this.loginForm.password), { expires: 30 });
-//                Cookies.set('rememberMe', this.loginForm.rememberMe, { expires: 30 });
+                Cookies.set("username", this.loginForm.username, { expires: 30 });
+                Cookies.set("password", encrypt(this.loginForm.password), { expires: 30 });
+                Cookies.set('rememberMe', this.loginForm.rememberMe, { expires: 30 });
               }
-              this.$store.dispatch("Login",this.loginForm)
-                .then(() => {
-                  this.loading = false;
-                  console.log(456)
-                  this.$router.push({ name: 'index', params: {}})
-//                  this.$route.push({ name: 'index',params:{}})
-                })
-                .catch(() => {
-                  this.loading = false;
-                })
-//              this.$axios.post('http://119.3.56.106:8001/mobileLogin?'+"username="+this.loginForm.username+"&password="+this.loginForm.password).then(response =>{
-//                console.log(response.data)
-//              },response =>{
-//                console.log('error')
-//              })
+              login(this.loginForm.username,this.loginForm.password).then(response =>{
+                this.loading = false;
+                localStorage.setItem('token',response.data.token);
+                this.$router.push({path:'/'})
+              })
+//              this.$store.dispatch("Login",this.loginForm)
+//                .then(() => {
+//                  this.loading = false;
+//                  console.log(456)
+//                  this.$router.push({ name: 'index', params: {}})
+//                })
+//                .catch(() => {
+//                  this.loading = false;
+//                })
             }else{
               Cookies.remove("username");
               Cookies.remove("password");
@@ -103,5 +103,23 @@
     float: right;
     padding-bottom: 20px;
   }
+  .el-form-item{
+
+  }
+
+  .el-form-item__label{
+    color: #fff;
+  }
+  .el-button--primary{
+    background: #409EFF;
+    border-color: #409EFF;
+  }
+  .el-button--primary:focus, .el-button--primary:hover{
+    background: #1585f9;
+    border-color: #1585f9;
+  }
+  /*.el-date-editor.el-input, .el-date-editor.el-input__inner{*/
+  /*width: inherit;*/
+  /*}*/
 
 </style>
