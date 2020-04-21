@@ -51,7 +51,7 @@
     data(){
       return{
         loading:false,
-        windowHeight:window.innerHeight-280,
+        windowHeight:window.innerHeight-270,
         tableHeader:[
           {name:'序号',prop:'',width:'50',align:'center'},
           {name:'项目名称',prop:'projectName',width:'300',align:'left'},

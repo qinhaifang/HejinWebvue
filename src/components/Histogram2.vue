@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="myChart" style="width: 100%;height: 340px"></div>
+    <div ref="myChart" style="width: 100%;height: 285px"></div>
   </div>
 </template>
 
@@ -14,9 +14,12 @@
         default: ()=>{}
       }
     },
-    data(){
-      return{
-
+    mounted(){
+      this.drawLine()
+    },
+    watch:{
+      chartData(val){
+        this.drawLine();
       }
     },
     methods:{

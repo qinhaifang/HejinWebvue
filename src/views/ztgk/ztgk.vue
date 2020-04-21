@@ -69,7 +69,7 @@
   import Histogram from '@/components/Histogram'
   import Histograms from '@/components/Histogram2'
   import PieChart from '@/components/pieChart'
-  import {xmgk,getTotalInvestment,getKoujin} from '@/api/ztgk/ztgk'
+  import {xmgk,getTotalInvestment,getKoujin,getSptotal} from '@/api/ztgk/ztgk'
     export default{
      components: {
       BoxBorder,
@@ -94,20 +94,23 @@
             totalInvestment:0,
             baifenbi:0
           },
+          chartData1:{
+            elId:'bar1',
+            yData:['2020-03'],
+            data:[12]
+          },
           chartData2: {
             elId:'bar2',
             yData:['立项审批', '环评审批', '用地选址','工程规划','工程许可'],
             data:{
-              data1:[10,20,30,10,2],
-              data2:[2,3,4,5,6]
+              data1:[1,1,1,1,1],
+              data2:[1,1,1,1,1]
             }
           },
-          pieChart:[],
-          chartData1:{
-            elId:'bar1',
-            yData:[],
-            data:[]
-          },
+          pieChart:[
+//            {value: 1, name: '累计完成投资'},
+//            {value: 100, name: '全年计划投资'}   假数据
+          ],
         }
       },
       created() {
@@ -128,16 +131,16 @@
             let data = response.data.data.monthlyInvestment;
 //            获取地图数据
             let map = response.data.data.projectMap;
-            console.log("正常从后台取到的",data)
-            for(var i=0;i<data.length;i++){
-              this.chartData1.yData.push(data[i].attribute);
-              this.chartData1.data.push(data[i].num);
-            }
-//            data.forEach((item) =>{
-//              this.chartData1.yData.push(item.attribute);
-//              this.chartData1.data.push(item.num);
-//            })
-            console.log('解析后的',JSON.parse(JSON.stringify(this.chartData1)))
+            data.forEach((item) =>{
+              let chartData1={
+                elId:'bar1',
+                yData:[],
+                data:[]
+              };
+              chartData1.yData.push(item.attribute)
+              chartData1.data.push(item.num);
+              this.chartData1 = chartData1
+            })
           })
           getKoujin('').then(response =>{
             let data= response.data.data;
@@ -145,6 +148,61 @@
             this.koujin.totalInvestment = data.totalInvestment;
             this.koujin.baifenbi = data.baifenbi;
             this.pieChart.push({value: data.totalInvestment, name: '累计完成投资'},{value: data.zInvestment, name: '全年计划投资'})
+          })
+          getSptotal('').then(response =>{
+            console.log(response.data.data);
+            let datas= response.data.data;
+            let updatechartData2 = {
+              elId:'bar2',
+              yData:['立项审批', '环评审批', '用地选址','工程规划','工程许可'],
+              data:{
+                data1:[],
+                data2:[]
+              }
+            }
+//          立项审批
+            datas.proceduresMap.forEach((item) =>{
+               if(item.procedures == '已审批'){
+                 updatechartData2.data.data1.push(item.proceduresNum)
+               }else{
+                 updatechartData2.data.data2.push(item.proceduresNum)
+               }
+
+            })
+//           环球审批
+            datas.eiaMap.forEach((item) =>{
+              if(item.eia == '已审批'){
+                updatechartData2.data.data1.push(item.eiaNum)
+              }else{
+                updatechartData2.data.data2.push(item.eiaNum)
+              }
+            })
+//            用地选址
+            datas.projectLandMap.forEach((item) =>{
+              if(item.projectLand == '已审批'){
+                updatechartData2.data.data1.push(item.projectLandNum)
+              }else{
+                updatechartData2.data.data2.push(item.projectLandNum)
+              }
+            })
+            // 工程规划
+            datas.constructionPlanMap.forEach((item) =>{
+              if(item.constructionPlan == '已审批'){
+                updatechartData2.data.data1.push(item.constructionPlanNum)
+              }else{
+                updatechartData2.data.data2.push(item.constructionPlanNum)
+              }
+            })
+            // 工程许可
+            datas.constructionPermitMap.forEach((item) =>{
+              if(item.constructionPermit == '已审批'){
+                updatechartData2.data.data1.push(item.constructionPermitNum)
+              }else{
+                updatechartData2.data.data2.push(item.constructionPermitNum)
+              }
+            })
+            this.chartData2 = updatechartData2
+
           })
         },
 
@@ -170,7 +228,7 @@
   }
   .left .card li{
     width: 48%;
-    padding: 20px 0;
+    padding: 15px 0;
     margin-bottom: 14px;
     float: left;
     background: url(../../assets/images/icon/cardBg.png) no-repeat;

@@ -12,3 +12,12 @@ export function zsTask(params){
     params:params
   })
 }
+//项目进度
+export function zsProgress(params){
+  params = JSON.parse(JSON.stringify(params));
+  return request({
+    url:'/pt/attract/list',
+    method:'get',
+    params:params
+  })
+}

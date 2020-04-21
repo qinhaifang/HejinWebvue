@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="pieChart" ref="pieChart" style="width: 100%;height: 220px"></div>
+    <div id="pieChart" ref="pieChart" style="width: 100%;height: 200px"></div>
   </div>
 </template>
 
@@ -16,6 +16,11 @@
     },
     mounted(){
       this.drawLine()
+    },
+    watch:{
+      pieChart(val){
+        this.drawLine();
+      }
     },
     methods:{
       drawLine(){

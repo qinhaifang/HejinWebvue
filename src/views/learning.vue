@@ -1,9 +1,8 @@
 <template>
     <div class="learn">
-      <box-border></box-border>
-      <div class="search-border">
-        <p><span class="blueBox"></span>学习交流</p>
-      </div>
+      <!--<box-border></box-border>-->
+      <p class="p20"><span class="blueBox"></span>学习交流</p>
+
       <ul class="list">
         <li v-for="(item,index) in listData" :key="index" @click="openDesc(item.id)">
           <div class="left">
@@ -60,7 +59,6 @@
           this.loading = true;
           spProcess(this.queryParams).then(response =>{
             this.listData = response.data.rows;
-            console.log(this.listData)
             this.pagination.total = response.data.total;
             this.pagination.currentPage = response.data.currentPage;
             this.loading = false;

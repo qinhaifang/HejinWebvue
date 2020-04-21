@@ -144,8 +144,11 @@
   .el-menu{
     padding: 0 15px;
   }
-  .el-menu li{
+  .el-menu-demo li{
     width: 11.11%;
+    text-align: center;
+  }
+  .el-menu-item-group ul li{
     text-align: center;
   }
 </style>

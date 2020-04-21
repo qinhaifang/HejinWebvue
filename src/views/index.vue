@@ -1,7 +1,7 @@
 <template>
     <div id="main">
       <home-header class="header"></home-header>
-      <div class="content">
+      <div class="content" :style="{height:height}">
         <transition name="move" mode="out-in">
           <router-view></router-view>
         </transition>
@@ -17,7 +17,7 @@
     },
     data(){
       return{
-
+        height:window.innerHeight-100+'px'
       }
     },
     created(){
@@ -43,11 +43,10 @@
   #main{
     background: #0d203c;
     color: #fff;
-    height: 100%;
+    height: auto;
   }
   .content{
-    padding: 10px 20px;
-    height: 100%;
+    padding: 0px 20px;
   }
 
 </style>

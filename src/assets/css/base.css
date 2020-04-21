@@ -71,6 +71,9 @@ html,body,footer,button,div,dd,dt,dl,a,b,i,em,form,h1,h2,h3,h4,h5,h6,input,label
   background: #2ECBF3;
   margin-right: 10px;
 }
+.p10{
+  padding: 10px 0;
+}
 .p20{
   padding: 20px 0;
 }
