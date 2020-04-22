@@ -6,6 +6,7 @@
         <el-form-item label="时间选择">
           <el-date-picker
             v-model="queryParams.constructionDate"
+            value-format="yyyy"
             type="year"
             placeholder="选择日期">
           </el-date-picker>

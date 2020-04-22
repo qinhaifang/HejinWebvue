@@ -3,7 +3,7 @@
       <div class="left border">
         <box-border></box-border>
         <div class="center">
-          <h4>项目概况</h4>
+          <h4 class="p10">项目概况</h4>
           <img src="../../assets/images/icon/headline.png" alt="">
           <ul class="card">
             <li>
@@ -36,7 +36,7 @@
           <div class="echarts">
             <h4>重点项目部门实时上报数据</h4>
             <img src="../../assets/images/icon/headline.png" alt="">
-            <histogram :chartData="chartData1"></histogram>
+            <histogram :chartData="chartData1" v-if="flag"></histogram>
           </div>
         </div>
       </div>
@@ -47,17 +47,17 @@
       <div class="right border">
         <box-border></box-border>
         <div class="center">
-          <h4>统计口径数据</h4>
+          <h4 class="p10">统计口径数据</h4>
           <img src="../../assets/images/icon/headline.png" alt="">
           <div class="empty"></div>
-          <pie-chart :pieChart="pieChart"></pie-chart>
+          <pie-chart :pieChart="pieChart" v-if="pieFlag"></pie-chart>
           <p class="text-left">全年计划投资额 <b class="color-y">{{koujin.zInvestment}}</b>亿元</p>
           <p class="text-left">截至目前累计完成投资额 <b class="color-y">{{koujin.totalInvestment}}</b>亿元</p>
           <p class="text-left">占全年计划投资额的 <b class="color-y">{{koujin.baifenbi}}</b></p>
           <div class="empty" style="padding: 10px 0"></div>
           <h4>手续办理情况统计（个/百分比）</h4>
           <img src="../../assets/images/icon/headline.png" alt="">
-          <histograms :chartData="chartData2"></histograms>
+          <histograms :chartData="chartData2" v-if="flags"></histograms>
         </div>
       </div>
     </div>
@@ -80,6 +80,9 @@
        props:{},
       data(){
         return{
+          flag:false,
+          flags:false,
+          pieFlag:false,
           xmgk:{
             total:0,   //项目总数
             startTotal:0,  //已开工
@@ -96,21 +99,32 @@
           },
           chartData1:{
             elId:'bar1',
-            yData:['2020-03'],
-            data:[12]
+            height:'295px',
+            title:'',
+            dataY:[],
+            dataX:[]
           },
           chartData2: {
+            title:'',
             elId:'bar2',
+            height:'285px',
             yData:['立项审批', '环评审批', '用地选址','工程规划','工程许可'],
             data:{
-              data1:[1,1,1,1,1],
-              data2:[1,1,1,1,1]
+              data1:[],
+              data2:[]
             }
           },
-          pieChart:[
+          pieChart:{
+            elId:'pie1',
+            height:'200px',
+            y:'top',
+            x:'center',
+            orient:'horizontal',
+            legend:['累计完成投资', '全年计划投资'],
+            data:[],
+          }
 //            {value: 1, name: '累计完成投资'},
 //            {value: 100, name: '全年计划投资'}   假数据
-          ],
         }
       },
       created() {
@@ -132,14 +146,9 @@
 //            获取地图数据
             let map = response.data.data.projectMap;
             data.forEach((item) =>{
-              let chartData1={
-                elId:'bar1',
-                yData:[],
-                data:[]
-              };
-              chartData1.yData.push(item.attribute)
-              chartData1.data.push(item.num);
-              this.chartData1 = chartData1
+              this.chartData1.dataY.push(item.attribute)
+              this.chartData1.dataX.push(item.num);
+              this.flag = true;
             })
           })
           getKoujin('').then(response =>{
@@ -147,62 +156,53 @@
             this.koujin.zInvestment = data.zInvestment;
             this.koujin.totalInvestment = data.totalInvestment;
             this.koujin.baifenbi = data.baifenbi;
-            this.pieChart.push({value: data.totalInvestment, name: '累计完成投资'},{value: data.zInvestment, name: '全年计划投资'})
+            this.pieChart.data.push({value: data.totalInvestment, name: '累计完成投资'},{value: data.zInvestment, name: '全年计划投资'})
+            this.pieFlag = true;
           })
           getSptotal('').then(response =>{
-            console.log(response.data.data);
             let datas= response.data.data;
-            let updatechartData2 = {
-              elId:'bar2',
-              yData:['立项审批', '环评审批', '用地选址','工程规划','工程许可'],
-              data:{
-                data1:[],
-                data2:[]
-              }
-            }
 //          立项审批
             datas.proceduresMap.forEach((item) =>{
                if(item.procedures == '已审批'){
-                 updatechartData2.data.data1.push(item.proceduresNum)
+                 this.chartData2.data.data1.push(item.proceduresNum)
                }else{
-                 updatechartData2.data.data2.push(item.proceduresNum)
+                 this.chartData2.data.data2.push(item.proceduresNum)
                }
 
             })
 //           环球审批
             datas.eiaMap.forEach((item) =>{
               if(item.eia == '已审批'){
-                updatechartData2.data.data1.push(item.eiaNum)
+                this.chartData2.data.data1.push(item.eiaNum)
               }else{
-                updatechartData2.data.data2.push(item.eiaNum)
+                this.chartData2.data.data2.push(item.eiaNum)
               }
             })
 //            用地选址
             datas.projectLandMap.forEach((item) =>{
               if(item.projectLand == '已审批'){
-                updatechartData2.data.data1.push(item.projectLandNum)
+                this.chartData2.data.data1.push(item.projectLandNum)
               }else{
-                updatechartData2.data.data2.push(item.projectLandNum)
+                this.chartData2.data.data2.push(item.projectLandNum)
               }
             })
             // 工程规划
             datas.constructionPlanMap.forEach((item) =>{
               if(item.constructionPlan == '已审批'){
-                updatechartData2.data.data1.push(item.constructionPlanNum)
+                this.chartData2.data.data1.push(item.constructionPlanNum)
               }else{
-                updatechartData2.data.data2.push(item.constructionPlanNum)
+                this.chartData2.data.data2.push(item.constructionPlanNum)
               }
             })
             // 工程许可
             datas.constructionPermitMap.forEach((item) =>{
               if(item.constructionPermit == '已审批'){
-                updatechartData2.data.data1.push(item.constructionPermitNum)
+                this.chartData2.data.data1.push(item.constructionPermitNum)
               }else{
-                updatechartData2.data.data2.push(item.constructionPermitNum)
+                this.chartData2.data.data2.push(item.constructionPermitNum)
               }
             })
-            this.chartData2 = updatechartData2
-
+            this.flags = true;
           })
         },
 

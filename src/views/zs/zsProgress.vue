@@ -21,7 +21,7 @@
                   v-model="queryParams.constructionDate"
                   align="right"
                   type="year"
-                  format="yyyy"
+                  value-format="yyyy"
                   placeholder="选择年">
                 </el-date-picker>
               </el-form-item>
@@ -70,7 +70,7 @@
                   v-model="queryParams.constructionDate"
                   align="right"
                   type="year"
-                  format="yyyy"
+                  value-format="yyyy"
                   placeholder="选择年">
                 </el-date-picker>
               </el-form-item>
@@ -119,7 +119,7 @@
                   v-model="queryParams.constructionDate"
                   align="right"
                   type="year"
-                  format="yyyy"
+                  value-format="yyyy"
                   placeholder="选择年">
                 </el-date-picker>
               </el-form-item>
@@ -168,7 +168,7 @@
                   v-model="queryParams.constructionDate"
                   align="right"
                   type="year"
-                  format="yyyy"
+                  value-format="yyyy"
                   placeholder="选择年">
                 </el-date-picker>
               </el-form-item>
@@ -217,7 +217,7 @@
                   v-model="queryParams.constructionDate"
                   align="right"
                   type="year"
-                  format="yyyy"
+                  value-format="yyyy"
                   placeholder="选择年">
                 </el-date-picker>
               </el-form-item>

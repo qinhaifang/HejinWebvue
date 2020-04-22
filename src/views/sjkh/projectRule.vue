@@ -7,6 +7,7 @@
           <el-date-picker
             v-model="queryParams.constructionDate"
             type="year"
+            value-format="yyyy"
             placeholder="选择日期">
           </el-date-picker>
         </el-form-item>

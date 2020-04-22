@@ -74,6 +74,9 @@ html,body,footer,button,div,dd,dt,dl,a,b,i,em,form,h1,h2,h3,h4,h5,h6,input,label
 .p10{
   padding: 10px 0;
 }
+.pl10{
+  padding:10px;
+}
 .p20{
   padding: 20px 0;
 }

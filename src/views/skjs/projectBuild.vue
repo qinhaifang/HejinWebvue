@@ -14,6 +14,7 @@
             v-model="queryParams.comleteYear"
             align="right"
             type="year"
+            value-format="yyyy"
             placeholder="选择年">
           </el-date-picker>
         </el-form-item>

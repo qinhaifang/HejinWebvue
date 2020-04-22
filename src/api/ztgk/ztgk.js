@@ -49,7 +49,6 @@ export function getSptotal(params){
 // type = 8 推进机制
 // type = 9 五大招商模式
 // type = 10 招商作战图
-
 export function tjjz(params){
   params = JSON.parse(JSON.stringify(params));
   return request({

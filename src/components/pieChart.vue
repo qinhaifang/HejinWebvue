@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="pieChart" ref="pieChart" style="width: 100%;height: 200px"></div>
+    <div :id="pieChart.elId" ref="pieChart"  :style="{width:'100%',height:pieChart.height}"></div>
   </div>
 </template>
 
@@ -10,8 +10,8 @@
   export default{
     props:{
       pieChart:{
-        type:Array,
-        default: ()=>[]
+        type:Object,
+        default: ()=>{}
       }
     },
     mounted(){
@@ -24,21 +24,21 @@
     },
     methods:{
       drawLine(){
-        let myChart = echarts.init(document.getElementById('pieChart'));
+        let myChart = echarts.init(this.$refs.pieChart);
         // 绘制图表
         myChart.setOption({
           color:['#02c9ff', '#ffba01', '#ff5c62'],
 //          backgroundColor: 'pink',   //整个图表的背景色
           title: {
-            text: '',    //主标题
+            text: this.pieChart.title,    //主标题
             subtext:'',  //副标题
-            left:'center',
+            left:'left',
             x:'center',   //x 设置水平安放位置，默认左对齐，可选值：'center' ¦ 'left' ¦ 'right'
             y:'top',
             itemGap: 30,  // itemGap设置主副标题纵向间隔，单位px，默认为10
             // 主标题文本样式设置
             textStyle: {
-              fontSize: 18,
+              fontSize: 14,
               fontWeight: 'bolder',
               color: '#fff'
             },
@@ -60,9 +60,9 @@
             formatter: '{a} <br/>{b} : {c} ({d}%)'
           },
           legend:{
-            orient: 'horizontal', //// orient 设置布局方式，默认水平布局，可选值：'horizontal'（水平） ¦ 'vertical'（垂直）
-            left: 'center',
-            y:'top',
+            orient: this.pieChart.orient, //// orient 设置布局方式，默认水平布局，可选值：'horizontal'（水平） ¦ 'vertical'（垂直）
+            left: this.pieChart.x,
+            y:this.pieChart.y,
 //            itemWidth: 24,   // 设置图例图形的宽
 //            itemHeight: 18,  // 设置图例图形的高
             padding: 5,                // 图例内边距，单位px，默认各方向内边距为5，
@@ -72,7 +72,7 @@
             // itemGap设置各个item之间的间隔，单位px，默认为10，横向布局时为水平间隔，纵向布局时为纵向间隔
             itemGap: 30,
 //            backgroundColor: '#eee',  // 设置整个图例区域背景颜色
-            data: ['累计完成投资', '全年计划投资']
+            data: this.pieChart.legend
           },
           series: [{
             name: '',
@@ -81,7 +81,7 @@
             radius: '50%',
 //            radius: ['30%', '60%'],  // 设置环形饼状图， 第一个百分数设置内圈大小，第二个百分数设置外圈大小
             center: ['50%', '50%'],
-            data: this.pieChart,
+            data: this.pieChart.data,
             emphasis: {
               // emphasis：英文意思是 强调;着重;（轮廓、图形等的）鲜明;突出，重读
               // emphasis：设置鼠标放到哪一块扇形上面的时候，扇形样式、阴影
@@ -95,7 +95,7 @@
             // 设置值域的那指向线
             labelLine: {
               normal: {
-                show: false   // show设置线是否显示，默认为true，可选值：true ¦ false
+                show: true   // show设置线是否显示，默认为true，可选值：true ¦ false
               }
             },
             // 设置值域的标签
@@ -105,7 +105,7 @@
                 // formatter: '{a} {b} : {c}个 ({d}%)'   设置标签显示内容 ，默认显示{b}
                 // {a}指series.name  {b}指series.data的name
                 // {c}指series.data的value  {d}%指这一部分占总数的百分比
-                formatter: '{c}'+'亿元'
+                formatter: '{c}'
               }
             }
           }]

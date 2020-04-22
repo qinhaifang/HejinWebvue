@@ -7,6 +7,7 @@
           <el-date-picker
         v-model="queryParams.year"
         type="year"
+        value-format="yyyy"
         placeholder="选择日期">
       </el-date-picker>
         </el-form-item>
@@ -14,6 +15,7 @@
           <el-date-picker
             v-model="queryParams.month"
             type="month"
+            value-format="MM"
             placeholder="选择月">
           </el-date-picker>
         </el-form-item>

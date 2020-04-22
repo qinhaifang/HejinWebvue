@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div :id="chartData.elId" ref="myChart" style="width: 100%;height: 295px"></div>
+      <div :id="chartData.elId" ref="myChart" :style="{width:'100%',height:chartData.height}"></div>
     </div>
 </template>
 
@@ -34,7 +34,14 @@ import echarts from 'echarts'
           let myChart = echarts.init(this.$refs.myChart);
           // 绘制图表
           myChart.setOption({
-            title: { text: '' },
+            title: {
+              text: this.chartData.title ,
+              textStyle: {
+                fontSize: 14,
+                color: '#fff',
+              },
+              y: 'top',
+            },
             tooltip: {
               axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                 type: 'line',         // 默认为直线，可选为：'line' | 'shadow'
@@ -55,10 +62,9 @@ import echarts from 'echarts'
             },
             grid: {
               show: true,    // 是否显示直角坐标系网格
-              x:10,
-              y:25,
-              x2:25,
-              y2:35,
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
 //              top: 80,  // 相对位置 top\bottom\left\right
               containLabel: true, // gird 区域是否包含坐标轴的刻度标签
               tooltip: {   //鼠标放上去显示信息
@@ -124,7 +130,7 @@ import echarts from 'echarts'
                   width:1,//这里是为了突出显示加上的，可以去掉
                 }
               },
-              data: this.chartData.yData
+              data: this.chartData.dataY
             },
             yAxis: {
               splitLine:{
@@ -165,18 +171,21 @@ import echarts from 'echarts'
               type: 'bar',
               legendHoverLink:true,// 是否启用图列 hover 时的联动高亮
               label: {   // 图形上的文本标签
-                show: true,
-                position: 'insideTop', // 相对位置
-                rotate: 0,  // 旋转角度
-                color: '#eee'
+                normal:{
+                  show: true,
+                  fontSize: 14,
+                  position: 'top', // 相对位置 insideTop
+                  rotate: 0,  // 旋转角度
+                  color: '#eee'
+                }
               },
               itemStyle: {    // 图形的形状
                 color: '#0ac9fe',
                 barBorderRadius: [18, 18, 0 ,0]
               },
               barWidth: 20,  // 柱形的宽度
-              barCategoryGap: '20%',  // 柱形的间距
-              data:this.chartData.data
+              barCategoryGap: '10%',  // 柱形的间距
+              data:this.chartData.dataX
             }]
           });
         }

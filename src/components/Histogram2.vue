@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="myChart" style="width: 100%;height: 285px"></div>
+    <div ref="myChart" :style="{width:'100%',height:chartData.height}"></div>
   </div>
 </template>
 
@@ -26,13 +26,14 @@
       drawLine(){
         const vm = this;
         let myChart = echarts.init(this.$refs.myChart);
+        myChart.resize();
         // 绘制图表
         myChart.setOption({
           color: [ '#49cc90','#c23531'],
           title: {
-            text: '',
+            text: this.chartData.title,
             textStyle: {
-              fontSize: 18,
+              fontSize: 14,
               color: '#fff',
             },
             y: 'top',
@@ -54,6 +55,12 @@
               fontSize: 16
             },
 
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
           },
           xAxis: {
             type: 'category',
@@ -100,7 +107,10 @@
           series: [{
             data: this.chartData.data.data1,
             name:'已办结',
-            // barWidth: 40,
+             barWidth: 20,
+            itemStyle: {    // 图形的形状
+              barBorderRadius: [18, 18, 0 ,0]
+            },
             label: {
               normal: {
                 show: true,
@@ -122,7 +132,10 @@
           },{
             data: this.chartData.data.data2,
             type: 'bar',
-            // barWidth: 40,
+            itemStyle: {    // 图形的形状
+              barBorderRadius: [18, 18, 0 ,0]
+            },
+             barWidth: 20,
             name:'办理中',
             showBackground: false,
             label: {
