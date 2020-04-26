@@ -24,54 +24,35 @@
       </el-form>
     </div>
 
-    <el-table :data="tableData" :height="windowHeight" border style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." element-loading-spinner="el-icon-loading">
-      <el-table-column
-        prop="date"
-        label="考核内容"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="评分办法"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="满分">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="自评分">
-      </el-table-column>
-    </el-table>
+    <table class="layui-table sjkh">
+      <colgroup>
+        <col width="300">
+        <col width="400">
+        <col width="100">
+        <col width="100">
+      </colgroup>
+      <thead>
+      <tr>
+        <th>考核内容</th>
+        <th>评分办法</th>
+        <th>满分</th>
+        <th>自评分</th>
+      </tr>
+      </thead>
+      <tbody v-html="rule">{{rule}</tbody>
+    </table>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {signing} from '../../api/sjkh/sjkh'
+  import {rule} from '../../api/sjkh/sjkh'
   export default{
     props:{},
     components:{},
     data(){
       return{
         loading:false,
-        windowHeight:window.innerHeight-280,
-        tableHeader:[
-          {name:'序号',prop:'',width:'50',align:'center'},
-          {name:'项目名称',prop:'projectName',width:'300',align:'left'},
-          {name:'建设内容和生产规模',prop:'constructionContent',width:'300',align:'left'},
-          {name:'预计总投资（亿元）',prop:'estimatedTotalInvestment',width:'160',align:'center'}
-        ],
-        tableData: [
-          {
-            date: '2016-05-02',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          }
-        ],
+        rule:'',
         // 查询参数
         queryParams: {
           constructionDate:'',
@@ -85,8 +66,29 @@
     methods:{
       getTable(){
         this.loading = true;
-        signing(this.queryParams).then(response =>{
-          this.tableData = response.data.rows;
+        rule(this.queryParams).then(response =>{
+          let data = response.data.rows[0];
+          var $content ='<tr> <td> <span>固定资产投资增幅: '+data.gutouZangfu+'  </span> <span>目标任务:  '+data.aimTask+' </span> <span>实际完成:  '+data.realyComplete+'</span> </td> <td>固定资产投资增幅完成目标任务计12分，未完成按比例扣分，超额完成1个百分点加0.3分，加分不超过3分，总分不超过15分</td> <td rowspan="">15分</td> <td rowspan="">'+data.gutouFen+'</td> </tr>' +
+            ' <tr> <td> ' +
+            '<span>入规工业企业全年目标任务：</span> ' +
+            '<span> '+data.oneQuarterComplete+' </span> ' +
+            '<span>'+data.twoQuarterComplete+'</span> ' +
+            '<span>'+data.threeQuarterComplete+'</span> ' +
+            '<span>'+data.fourQuarterComplete+'</span> ' +
+              //'<span>当年新增新投产工业企业:  000  个</span> ' +
+            '</td> <td>入规工业企业按照第一季度完成全年目标任务的10%，上半年20%，前三季度40%，全年100%分配任务，完成任务计4.6分，完不成任务按比例计分;超额完成目标每个加0.2分，加分不超过0.4分。当年增加新投产工业企业1个及以上加0.5分</td> <td>5分</td> <td>'+data.rugFen+'</td> </tr>' +
+            ' <tr> <td> <span>入限服务企业全年目标任务：</span> ' +
+            '<span>  '+data.serviceOneQuarterComplete+'</span> ' +
+            '<span>'+data.serviceTwoQuarterComplete+'</span>' +
+            ' <span>'+data.serviceThreeQuarterComplete+'  </span> ' +
+            '<span>'+data.serviceFourQuarterComplete+' </span> </td>' +
+            ' <td>入限服务企业按照第一季度完成全年目标任务的10%，上半年20%，前三季度40%，全年100%分配任务，完成任务计4.6分，完不成任务按比例计分;超额完成目标每个加0.2分，加分不超过0.4分。总分不超过5分</td> <td>5分</td> <td>'+data.serviceFen+'</td> </tr>' +
+            ' <tr> <td> <span>入限贸易企业全年目标任务：</span> <span> '+data.myiOneQuarterComplete+'</span> ' +
+            '<span> '+data.myiTwoQuarterComplete+'</span>' +
+            ' <span>'+data.myiThreeQuarterComplete+'</span> ' +
+            '<span>'+data.myiFourQuarterComplete+'</span> </td>' +
+            ' <td>入限贸易企业按照第一季度完成全年目标任务的10%，上半年20%，前三季度40%，全年100%分配任务，完成任务计4.5分，完不成任务按比例计分;超额完成目标每个加0.1分，加分不超过0.5分。总分不超过5分</td> <td>5分</td> <td>'+data.myiFen+'</td> </tr>';
+          this.rule = $content;
           this.loading = false;
         })
       },
@@ -98,3 +100,11 @@
   }
 
 </script>
+<style scoped>
+  table tr th{
+    height: 40px;
+    line-height: 40px;
+    border-bottom:1px solid #fff;
+    border-right:1px solid #fff;
+  }
+</style>

@@ -30,7 +30,7 @@ body {
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif,pingFangSC-Medium;
 }
 *{margin:0;padding:0;}
-html,body,footer,button,div,dd,dt,dl,a,b,i,em,form,h1,h2,h3,h4,h5,h6,input,label,li,nav,p,select,span,td,textarea,ul,li { padding: 0; margin: 0;list-style: none}
+html,body,footer,button,div,dd,dt,dl,a,b,i,em,form,h1,h2,h3,h4,h5,h6,input,label,li,nav,p,select,span,textarea,ul,li { padding: 0; margin: 0;list-style: none}
 @media all and (-webkit-min-device-pixel-ratio:0){
   .demo{
     font-size:0;

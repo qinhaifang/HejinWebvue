@@ -100,6 +100,9 @@
   .contents{
     padding: 10px 0;
   }
+  .el-tabs__header{
+    width: 18%;
+  }
 </style>
 
 

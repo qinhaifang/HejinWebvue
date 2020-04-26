@@ -11,6 +11,7 @@ import store from './store'
 import elementUI from  'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(elementUI);
+Vue.use(map);
 
 import Viewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css'
@@ -34,6 +35,7 @@ router.beforeEach((to, from, next) => {
     }
   }
 });
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

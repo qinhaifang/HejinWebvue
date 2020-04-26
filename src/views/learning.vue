@@ -65,7 +65,7 @@
           })
         },
         openDesc(id){
-          this.$message(`这是一条消息提示 ${id}`);
+          this.$router.push({name:'publicPage',params:{id:id,type:'leaderFollow'}})
         },
         handleSizeChange(val) {
           this.queryParams.pageSize = val;
@@ -89,12 +89,16 @@
     padding: 10px 0;
     border-bottom: 1px dashed #9caaf2;
     position: relative;
+    cursor: pointer;
   }
   .list .left{
     width: 20%;
   }
   .list .right{
     width: 78%;
+  }
+  .list .right h3{
+    color: #409EFF;
   }
   .list .right .date{
     display: block;

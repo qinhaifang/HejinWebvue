@@ -23,55 +23,37 @@
         <el-button type="primary" icon="el-icon-search" @click="onSubmit">搜索</el-button>
       </el-form>
     </div>
+    <table cellspacing="0" cellpadding="0" class="sjkh">
+      <colgroup>
+        <col width="120">
+        <col width="">
+        <col width="300">
+        <col width="100">
+        <col width="100">
+      </colgroup>
+      <thead>
+        <tr>
+          <th colspan="2">考核内容</th>
+          <th>评分办法</th>
+          <th>满分</th>
+          <th>自评分</th>
+        </tr>
+      </thead>
+      <tbody v-html="reBuilt">{{reBuilt}}</tbody>
+    </table>
 
-    <el-table :data="tableData" :height="windowHeight" border style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." element-loading-spinner="el-icon-loading">
-      <el-table-column
-        prop="date"
-        label="考核内容"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="评分办法"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="满分">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="自评分">
-      </el-table-column>
-    </el-table>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {signing} from '../../api/sjkh/sjkh'
+  import {reBuilt} from '../../api/sjkh/sjkh'
   export default{
     props:{},
     components:{},
     data(){
       return{
         loading:false,
-        windowHeight:window.innerHeight-280,
-        tableHeader:[
-          {name:'序号',prop:'',width:'50',align:'center'},
-          {name:'项目名称',prop:'projectName',width:'300',align:'left'},
-          {name:'建设内容和生产规模',prop:'constructionContent',width:'300',align:'left'},
-          {name:'预计总投资（亿元）',prop:'estimatedTotalInvestment',width:'160',align:'center'}
-        ],
-        tableData: [
-          {
-            date: '2016-05-02',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          }
-        ],
+        reBuilt:'',
         // 查询参数
         queryParams: {
           constructionDate:'',
@@ -85,8 +67,23 @@
     methods:{
       getTable(){
         this.loading = true;
-        signing(this.queryParams).then(response =>{
-          this.tableData = response.data.rows;
+        reBuilt(this.queryParams).then(response =>{
+          let data = response.data.rows[0];
+          let $content = '<tr> <td rowspan="2">省级重点项目</td> <td rowspan=""> <span>年度项目数量： '+data.shengTotal+'   个</span> <span>在建：  '+data.shengstartTotal+'   个</span> <span>新开工:  '+data.shengNew+'   个</span> <span>总投资规模:  '+data.zguimo+' 亿元</span> </td> <td>年度项目数量考核从高到低排名，排名第一记满分，后续位次按0.1分递减排队；项目数量相同，排队优先顺序以在建，新开工，总投资规模为依据</td> <td rowspan="" class="center">3.5分</td> <td rowspan="">'+data.sheng1Score+'</td> </tr>' +
+            ' <tr> <td>年度计划投资完成率: '+data.yearplanDivision+' </td> <td>年度计划投资完成率按从高到低排名，排名第一满分，后续名次按照0.1分递减；无省级重点项目按照县（市、区）、运城开发区省级重点项目排队最低得分计分。前期项目开工后投资完成额可纳入计分</td> <td rowspan="" class="center">3.5分</td> <td rowspan="">'+data.sheng2Score+'</td> </tr>' +
+            ' <tr> <td rowspan="2">"1311"重大工程项目</td> <td rowspan="">计划投资完成率：'+data.oneplanDivision+'</td> <td >计划投资完成率由高到低排名，排名第一记满分，后续位次按0.1分递减</td> <td rowspan="" class="center">3分</td> <td rowspan="">'+data.one1Score+'</td> </tr>' +
+            ' <tr> <td> <span>投资完成额:  '+data.oneTotal+'   亿元</span> <span>全市“1311”重大工程项目投资完成额： '+data.onecityTotal+'    亿元</span> <span>投资完成额占全市“1311”重大工程项目投资完成额比重：'+data.citytotalDivision+' </span> </td> <td >投资完成额占全市“1311”重大工程项目投资完成额比重，按区域分类由高到低排名，第一名记满分，后续位次按0.1分递减</td> <td rowspan="" class="center">3分</td> <td rowspan="">'+data.one2Score+'</td> </tr>' +
+            ' <tr> <td rowspan="3">季度集中开工项目</td> <td rowspan=""> <span>项目开工： '+data.jiduCount+'  个</span> <span>年度计划新开工项目总数： '+data.yearplanCount+'   个</span> <span>一季度开工率： '+data.onejiduDivision+'   </span> <span>二季度开工率：  '+data.twojiduDivision+'  </span> <span>三季度开工率： '+data.threejiduDivision+'   </span> </td> <td>开工项目个数占年度计划新开工项目总数比例从高到低排名，排名第一记满分，后续位次按0.1分递减，一季度达不到30%，二季度达不到80%，三季度达不到100%分值为零</td> <td rowspan="" class="center">3分</td> <td rowspan="">'+data.jidu1Score+'</td> </tr>' +
+            ' <tr> <td rowspan=""> <span>新开工项目中产业项目： '+data.industryCount+'   个（不含房地产项目）</span> <span>新开工项目总数：'+data.newStart+'    个</span> <span>新开工项目中产业项目占新开工项目总数比例：'+data.industrynewDivision+'</span> </td> <td>新开工项目中产业项目占新开工项目总数比例从高到低排名，排名第一记满分，后续位次依次按照0.1分递减，运城开发区不低于60%，其它一类和二类区不低于55%，三类区不低于50%，低于此标准的不计分</td> <td rowspan="" class="center">3分</td> <td rowspan="">'+data.jidu2Score+'</td> </tr>';
+          if(data.isHomecourt == 0){
+            $content += '<tr> <td rowspan="">本季度是全市集中开工主会场</td> <td>凡作为全市集中开工主会场的县（市、区）、运城开发区每一次加0.2分奖励分值</td> <td rowspan="" class="center">0.2分</td> <td rowspan=""></td> </tr>';
+          }else{
+            $content += '<tr> <td rowspan="">本季度不是全市集中开工主会场</td> <td>凡作为全市集中开工主会场的县（市、区）、运城开发区每一次加0.2分奖励分值</td> <td rowspan="" class="center">0.2分</td> <td rowspan=""></td> </tr>';
+          }
+          $content +=' <tr> <td rowspan="3">项目建设库</td> <td rowspan=""> <span>项目储备库动态总投资： '+data.storeTotal+'  亿元</span> <span>上年度实际完成投资总量： '+data.investMoney+'  亿元</span> <span>项目储备库动态总投资达到上年度实际完成投资总量： '+data.mulpitle+'  倍</span> </td> <td>项目储备库动态总投资达到上年度实际完成投资总量3倍以上,占1分，达不到要求不计分</td> <td rowspan="" class="center">1分</td> <td rowspan="">'+data.store1Score+'</td> </tr>' +
+            ' <tr> <td rowspan=""> <span>项目建设库年度计划投资:  '+data.yearPlan+'   亿元</span> <span>当年市下达投资任务:  '+data.shiTask+'    亿元</span> <span>项目建设库年度计划投资达到当年市下达投资任务:  '+data.mulpitleTask+'   倍</span> </td> <td >项目建设库年度计划投资达到当年市下达投资任务1.2倍以上，占3分，达不到要求不计分</td> <td rowspan="" class="center">3分</td> <td rowspan="">'+data.store2Score+'</td> </tr>' +
+            ' <tr> <td rowspan="">项目入库管理和月调度: '+data.dispatch+'</td> <td >项目入库管理和月调度占2分，未达到要求每次减0.1分</td> <td rowspan="" class="center">2分</td> <td rowspan="">'+data.store3Score+'</td> </tr>';
+          this.reBuilt = $content;
           this.loading = false;
         })
       },
@@ -98,4 +95,13 @@
   }
 
 </script>
-
+<style scoped>
+  table tr th{
+    height: 40px;
+    line-height: 40px;
+    border:1px solid #fff;
+  }
+  table tbody tr td{
+    border:1px solid #fff;
+  }
+</style>

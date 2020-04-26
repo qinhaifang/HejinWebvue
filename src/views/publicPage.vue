@@ -12,7 +12,7 @@
 
 <script type="text/ecmascript-6">
   import BoxBorder from '@/components/boxStyle'
-  import {getDesc} from '@/api/getDesc'
+  import {getDesc,getInfo} from '@/api/getDesc'
     export default{
       name:'publicPage',
       components:{
@@ -36,10 +36,18 @@
           this.row = this.$route.params.id;
           this.type = this.$route.params.type;
           console.log('页面标识',this.type)
-          getDesc(this.row).then(response =>{
-            this.title = response.data.data.title;
-            this.content = response.data.data.content;
-          })
+          if(this.type == 'leaderFollow'){
+            getDesc(this.row).then(response =>{
+              this.title = response.data.data.title;
+              this.content = response.data.data.content;
+            })
+          }else if(this.type == 'projectDesc'){
+            getInfo(this.row).then(response =>{
+              this.title = response.data.data.infoTitle;
+              this.content = response.data.data.infoContent;
+            })
+          }
+
         },
         back(){
           this.$router.go(-1);

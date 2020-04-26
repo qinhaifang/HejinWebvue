@@ -10,3 +10,11 @@ export function getDesc(id){
     method:'get',
   })
 }
+
+
+export function getInfo(id){
+  return request({
+    url:'/pt/info/'+id,
+    method:'get',
+  })
+}

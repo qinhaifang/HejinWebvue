@@ -23,27 +23,23 @@
         <el-button type="primary" icon="el-icon-search" @click="onSubmit">搜索</el-button>
       </el-form>
     </div>
-
-    <el-table :data="tableData" :height="windowHeight" border style="width: 100%" v-loading="loading" element-loading-text="拼命加载中..." element-loading-spinner="el-icon-loading">
-      <el-table-column
-        prop="date"
-        label="考核内容"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="评分办法"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="满分">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="自评分">
-      </el-table-column>
-    </el-table>
+    <table cellspacing="0" cellpadding="0" class="sjkh">
+      <colgroup>
+        <col width="280">
+        <col width="300">
+        <col width="100">
+        <col width="100">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>考核内容</th>
+          <th>评分办法</th>
+          <th>满分</th>
+          <th>自评分</th>
+        </tr>
+      </thead>
+      <tbody v-html="signing">{{signing}}</tbody>
+    </table>
   </div>
 </template>
 
@@ -55,28 +51,12 @@
     data(){
       return{
         loading:false,
-        windowHeight:window.innerHeight-280,
-        tableHeader:[
-          {name:'序号',prop:'',width:'50',align:'center'},
-          {name:'项目名称',prop:'projectName',width:'300',align:'left'},
-          {name:'建设内容和生产规模',prop:'constructionContent',width:'300',align:'left'},
-          {name:'预计总投资（亿元）',prop:'estimatedTotalInvestment',width:'160',align:'center'}
-        ],
-        tableData: [
-          {
-            date: '2016-05-02',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          }
-        ],
         // 查询参数
         queryParams: {
           constructionDate:'',
           constructionQuarter:''
-        }
+        },
+        signing:''
       }
     },
     created() {
@@ -86,7 +66,18 @@
       getTable(){
         this.loading = true;
         signing(this.queryParams).then(response =>{
-          this.tableData = response.data.rows;
+          let data = response.data.rows[0],signing = '';
+          signing = '<tr><td rowspan="">战略新兴产业项目'+data.zhanTotal+'</td> <td rowspan="">凡签约1亿元战略新兴产业项目得2分，2亿得4分，以此类推</td> <td rowspan="" style="text-align:center;"></td> <td rowspan="" style="text-align:center;">'+data.zhanScore+'</td> </tr> ' +
+            '<tr> <td>传统产业项目'+data.chuanTotal+'</td> <td rowspan="">凡签约1亿元传统产业项目得1分，2亿得2分，以此类推</td> <td rowspan="" style="text-align:center;"></td> <td rowspan="" style="text-align:center;">'+data.chuanScore+'</td> </tr>' +
+            ' <tr> <td>非工业项目'+data.noindustrialTotal+'</td> <td rowspan="">凡签约1亿元非工业项目得0.6分，2亿得1.2分，以此类推</td> <td rowspan="" style="text-align:center;"></td> <td rowspan="" style="text-align:center;">'+data.noindustrialScore+'</td> </tr> ' +
+            '<tr> <td>开工率： '+data.startworkDivision+'   <span style="color: #c9c9c9;display: block;font-size: .8rem">开工率=当年签约并开工项目个数/当年签约项目个数*100%</span></td><td rowspan="">签约项目半年后开工率要达到40%，为达到目标每低一个百分点扣0.1分</td> <td rowspan="" style="text-align:center;"></td> <td rowspan="" style="text-align:center;">'+data.startworkScore+'</td> </tr>' +
+            ' <tr> <td colspan="2">本季度本单位综合分值=战略新兴项目得分+传统产业项目得分+非工业项目得分</td> <td rowspan="" style="text-align:center;">15分</td> <td rowspan="" style="text-align:center;">'+data.sum+'</td> </tr> ' ;
+          if(data.isNo1 == 0){
+            signing += '<tr> <td colspan="2">季度签约项目综合分值=综合分值排名是否第一 <span style="display: block;"><input type="radio" disabled checked>是<span>15分</span></span> <span style="display: block;"><input type="radio" readonly="readonly" disabled>否<span>季度签约项目分值=本季度本单位各类签约项目综合分值/本季度第一名单位各类项目综合分值*15</span></span> </td> <td rowspan="" style="text-align:center;">15分</td> <td rowspan="" style="text-align:center;">15分</td> </tr>'
+          }else {
+            signing += '<tr> <td colspan="2">季度签约项目综合分值=综合分值排名是否第一 <span style="display: block;"><input type="radio" disabled>是15分</span> <span style="display: block;"><input type="radio"  checked disabled>否<span>季度签约项目分值=本季度本单位各类签约项目综合分值/本季度第一名单位各类项目综合分值*15</span></span> </td> <td rowspan="" style="text-align:center;">15分</td> <td rowspan="" style="text-align:center;"></td> </tr>';
+          }
+          this.signing = signing;
           this.loading = false;
         })
       },
@@ -98,3 +89,11 @@
   }
 
 </script>
+<style scoped>
+  table tr th{
+    height: 40px;
+    line-height: 40px;
+    border-bottom:1px solid #fff;
+    border-right: 1px solid #fff;
+  }
+</style>
