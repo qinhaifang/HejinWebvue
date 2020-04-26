@@ -22,17 +22,15 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="this.pagination.total" class="center p20">
     </el-pagination>
-    <!--<page :pagination="pagination"></page>-->
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import Page from '@/components/pagination'
   import {xmWaring,xmDubanWarlist} from '@/api/gtzz/gtzz'
   export default{
     props:{},
     components:{
-      Page
+
     },
     data(){
       return{

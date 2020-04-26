@@ -113,3 +113,32 @@ table{
 .waringTab .el-tabs__content{
   padding: 0;
 }
+.xmtz .el-tabs__content,.projectDesc .el-tabs__content{
+  border: 0;
+}
+.xmtz .el-tabs__nav{
+  width: 100%;
+  padding: 0;
+}
+.xmtz .el-tabs__item{
+  padding: 0 36px;
+  text-align: center;
+  border-left: 0px solid #fff!important;
+}
+.projectDesc .el-tabs__item{
+  width: 25%;
+  /*padding: 0 10%;*/
+  text-align: center;
+  border-left: 0px solid #fff!important;
+}
+.el-table tbody tr:hover>td {
+  color: #fff;
+  background-color:#0d203c!important
+}
+.projectDesc .el-tabs--card>.el-tabs__header .el-tabs__nav{
+  padding: 0;
+}
+.site img,.site video{
+  width: 100%;
+  height: 300px;
+}

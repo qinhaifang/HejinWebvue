@@ -17,7 +17,7 @@
     },
     data(){
       return{
-        height:window.innerHeight-100+'px'
+        height:window.innerHeight-135+'px'
       }
     },
     created(){

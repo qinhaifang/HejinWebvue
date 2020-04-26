@@ -193,6 +193,13 @@ export default new Router({
           component: resolve => require(['../views/publicPage.vue'],resolve),
           meta: {title: '公共详情页面', keepAlive: true}
         },
+        ,
+        {
+          path: '/projectDesc',
+          name:'projectDesc',
+          component: resolve => require(['../views/projectDesc.vue'],resolve),
+          meta: {title: '项目详情页面', keepAlive: true}
+        },
         {
           path: '/imgDemo',
           name:'imgDemo',

@@ -80,6 +80,9 @@ html,body,footer,button,div,dd,dt,dl,a,b,i,em,form,h1,h2,h3,h4,h5,h6,input,label
 .p20{
   padding: 20px 0;
 }
+.p15{
+  padding: 15px;
+}
 .pl20{
   padding: 0 20px;
 }
@@ -94,6 +97,12 @@ html,body,footer,button,div,dd,dt,dl,a,b,i,em,form,h1,h2,h3,h4,h5,h6,input,label
 }
 .search-border .el-form{
   padding: 5px 0;
+}
+.border_b{
+  border-bottom: 1px dashed #1b93a0;
+}
+.border_r{
+  border-right: 1px dashed #1b93a0;
 }
 
 /*.desc p ,.desc span{*/

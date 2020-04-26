@@ -59,16 +59,16 @@
               <el-button type="primary" icon="el-icon-search" @click="onSubmit">搜索</el-button>
             </el-form>
           </div>
-          <div class="item">
+          <div class="item border_b">
             <pie-chart :pieChart="chartData8" :loading="loading"  v-if="flag3" ></pie-chart>
           </div>
-          <div class="item">
+          <div class="item border_b">
             <pie-chart :pieChart="chartData9" :loading="loading"  v-if="flag3" ></pie-chart>
           </div>
-          <div class="item">
+          <div class="item border_r">
             <histogram :chartData="chartData10" :loading="loading"  v-if="flag4" ></histogram>
           </div>
-          <div class="item">
+          <div class="item ">
             <pie-chart :pieChart="chartData11" :loading="loading"  v-if="flag4" ></pie-chart>
           </div>
           <div class="clear"></div>
