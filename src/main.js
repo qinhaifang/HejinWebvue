@@ -11,7 +11,6 @@ import store from './store'
 import elementUI from  'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(elementUI);
-Vue.use(map);
 
 import Viewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css'
@@ -20,7 +19,12 @@ Vue.use(Viewer);
 import '@/assets/css/base.css'
 import '@/assets/css/common.css'
 
-
+//import BaiduMap  from 'vue-baidu-map'
+//
+//Vue.use(BaiduMap, {
+//  // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
+//  ak: 'MRd6z4uQFq8AKcnis0OItL6NHG0gHcKn'
+//})
 Vue.config.productionTip = false
 router.beforeEach((to, from, next) => {
   //debugger

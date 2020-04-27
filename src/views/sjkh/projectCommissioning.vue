@@ -69,8 +69,8 @@
         this.loading = true;
         touchang(this.queryParams).then(response =>{
           let data = response.data.rows[0];
-          var $content ='<tr> <td> <span>工业投资增幅: '+data.gutouZangfu+' </span> <span>目标任务:  '+data.aimTask+'</span> <span>实际完成:  '+data.realyComplete+' </span> </td> <td>工业投资增幅完成目标任务得满分，未完成按比例扣分</td> <td rowspan="">8分</td> <td rowspan="">'+data.gutouFen+'</td> </tr> ' +
-            '<tr> <td><span>全年竣工投产工业项目: '+data.allYearProject+' 个</span> <span>本季度竣工投产项目:  '+data.jiduProject+' 个</span></td> <td>全年一类，二类，三类区域工业项目竣工投产任务分别是12个，8个，4个，共计112个；每季度一类。二类。三类区域工业项目任务分别是3个，2个，1个，合计3分；一类区少完成一个减1分，超额完成一个加1分；二类区少完成一个减1.5分，超额完成一个加1.5分；三类区少完成一个减3分，超额完成一个加3分；累计记分不超过12分</td> <td>12分</td> <td>'+data.jungongFen+'</td> </tr>';
+          var $content ='<tr> <td> <span>工业投资增幅: '+data.gutouZangfu+' </span> <span>目标任务:  '+data.aimTask+'</span> <span>实际完成:  '+data.realyComplete+' </span> </td> <td>工业投资增幅完成目标任务得满分，未完成按比例扣分</td> <td rowspan="" class="center">8分</td> <td rowspan="" class="center">'+data.gutouFen+'</td> </tr> ' +
+            '<tr> <td><span>全年竣工投产工业项目: '+data.allYearProject+' 个</span> <span>本季度竣工投产项目:  '+data.jiduProject+' 个</span></td> <td>全年一类，二类，三类区域工业项目竣工投产任务分别是12个，8个，4个，共计112个；每季度一类。二类。三类区域工业项目任务分别是3个，2个，1个，合计3分；一类区少完成一个减1分，超额完成一个加1分；二类区少完成一个减1.5分，超额完成一个加1.5分；三类区少完成一个减3分，超额完成一个加3分；累计记分不超过12分</td> <td class="center">12分</td> <td class="center">'+data.jungongFen+'</td> </tr>';
           this.touchang = $content;
           this.loading = false;
         })
@@ -79,7 +79,6 @@
         this.getTable();
       }
     }
-
   }
 
 </script>
@@ -91,4 +90,7 @@
     border-right:1px solid #fff;
   }
 </style>
+
+
+
 

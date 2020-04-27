@@ -22,6 +22,7 @@ export default new Router({
       path: '/',
       name:'home',
       component: resolve => require(['../views/index.vue'],resolve),
+      //component: resolve => require(['../views/mapDemos.vue'],resolve),
       children:[
         //{path: '*', redirect: '../views/ztgk/ztgk.vue'},
         {
@@ -205,6 +206,13 @@ export default new Router({
           name:'imgDemo',
           component: resolve => require(['../views/imgDemo.vue'],resolve),
           meta: {title: '图片放大', keepAlive: true}
+        }
+        ,
+        {
+          path: '/mapDemo',
+          name:'mapDemo',
+          component: resolve => require(['../views/mapDemo.vue'],resolve),
+          meta: {title: '百度地图', keepAlive: true}
         }
       ],
       hidden:true

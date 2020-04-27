@@ -42,7 +42,7 @@
       </div>
       <div class="middle border">
         <box-border></box-border>
-        middle
+        <map-demos :mapData="projectMap"></map-demos>
       </div>
       <div class="right border">
         <box-border></box-border>
@@ -69,13 +69,15 @@
   import Histogram from '@/components/Histogram'
   import Histograms from '@/components/Histogram2'
   import PieChart from '@/components/pieChart'
+  import MapDemos from '@/views/mapDemos'
   import {xmgk,getTotalInvestment,getKoujin,getSptotal} from '@/api/ztgk/ztgk'
     export default{
      components: {
       BoxBorder,
       Histogram,
       Histograms,
-      PieChart
+      PieChart,
+       MapDemos
     },
        props:{},
       data(){
@@ -83,6 +85,7 @@
           flag:false,
           flags:false,
           pieFlag:false,
+          projectMap:null,
           xmgk:{
             total:0,   //项目总数
             startTotal:0,  //已开工
@@ -90,7 +93,6 @@
             warTotal:0,      //项目预警
             monthInvestment:0,  //本月完成投资
             totalMonth:0,    //累计完成投资
-
           },
           koujin:{
             zInvestment:0,
@@ -140,11 +142,11 @@
             this.xmgk.warTotal = xmgk.warTotal;
             this.xmgk.monthInvestment = xmgk.monthInvestment.num;
             this.xmgk.totalMonth = xmgk.totalMonth;
+            //            获取地图数据
+            this.projectMap = xmgk.projectMap;
           })
           getTotalInvestment('').then(response =>{
             let data = response.data.data.monthlyInvestment;
-//            获取地图数据
-            let map = response.data.data.projectMap;
             data.forEach((item) =>{
               this.chartData1.dataY.push(item.attribute)
               this.chartData1.dataX.push(item.num);
