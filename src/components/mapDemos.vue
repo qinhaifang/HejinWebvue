@@ -5,10 +5,18 @@
         <!--比例尺控件-->
         <bm-scale anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-scale>
         <!--缩放控件-->
-        <bm-navigation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" ></bm-navigation>
+        <!--<bm-navigation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" ></bm-navigation>-->
         <!--聚合动态添加的点坐标-->
         <bm-marker-clusterer :averageCenter="true">
-          <bm-marker v-for="marker of mapData" :key="marker.id" :position="{lng: marker.xCoor, lat: marker.yCoor}" @click="lookDetail(marker)"></bm-marker>
+              <bm-marker  v-for="(marker,item) of mapData" v-if="marker.isProvince == '是'" :key="item" :position="{lng: marker.xCoor, lat: marker.yCoor}" @click="lookDetail(marker)" :icon="{url: map.province, size: { width: 100, height: 50 }}"
+              ></bm-marker>
+              <bm-marker  v-for="marker of mapData" v-if="marker.isCity == '是'" :key="marker.id" :position="{lng: marker.xCoor, lat: marker.yCoor}" @click="lookDetail(marker)" :icon="{url: map.city, size: { width: 100, height: 50 }}"
+              ></bm-marker>
+              <bm-marker  v-for="marker of mapData" v-if="marker.isOnethree == '是'" :key="marker.id" :position="{lng: marker.xCoor, lat: marker.yCoor}" @click="lookDetail(marker)" :icon="{url: map.point, size: { width: 100, height: 50 }}"
+              ></bm-marker>
+          <bm-marker  v-for="marker of mapData" v-if="marker.isOnethree == '否' && marker.isCity == '否' && marker.isProvince == '否'" :key="marker.id" :position="{lng: marker.xCoor, lat: marker.yCoor}" @click="lookDetail(marker)" :icon="{url: map.other, size: { width: 100, height: 50 }}"
+          ></bm-marker>
+
         </bm-marker-clusterer>
         <!--&lt;!&ndash;信息窗体&ndash;&gt;-->
         <bm-info-window :position="{lng: infoWindow.info.xCoor, lat: infoWindow.info.yCoor}" :title="infoWindow.info.projectName" :show="infoWindow.show" >
@@ -23,12 +31,18 @@
 
 
 <script type="text/ecmascript-6">
-  import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
-  import BmScale from 'vue-baidu-map/components/controls/Scale'
-  import BmNavigation from 'vue-baidu-map/components/controls/Navigation'
+  import {BaiduMap} from 'vue-baidu-map'
+  import {BmScale} from 'vue-baidu-map'
+  import {BmNavigation} from 'vue-baidu-map'
   import BmMarkerClusterer from  'vue-baidu-map/components/extra/MarkerClusterer'
-  import BmMarker from 'vue-baidu-map/components/overlays/Marker'
-  import BmInfoWindow from 'vue-baidu-map/components/overlays/InfoWindow'
+  import {BmMarker} from 'vue-baidu-map'
+  import {BmInfoWindow} from 'vue-baidu-map'
+//  import {BaiduMap} from 'vue-baidu-map'
+//  import {BmScale} from 'vue-baidu-map'
+//  import {BmNavigation} from 'vue-baidu-map'
+//  import {BmMarkerClusterer} from  'vue-baidu-map'
+//  import {BmMarker} from 'vue-baidu-map'
+//  import {BmInfoWindow} from 'vue-baidu-map'
     export default{
       props:{
         mapData:{
@@ -59,7 +73,11 @@
               width:'100%',
               height:'690px',
               center: {lng: 110.711954414, lat: 35.580172115},
-              zoom: 15,
+              zoom: 13,
+              province:require("@/assets/images/shenIcon.png"),
+              city:require("@/assets/images/shiIcon.png"),
+              other:require("@/assets/images/other.png"),
+              point:require("@/assets/images/1311Icon.png"),
             }
           }
       },
@@ -67,6 +85,9 @@
         mapData(val){
           console.log('地图数据',this.mapData)
         }
+      },
+      mounted(){
+
       },
       methods: {
           handler({ BMap, map }) {
@@ -208,11 +229,10 @@
 //            }
 //            map.setMapStyle(mapStyle);
             map.setMapStyle({style:'midnight'});
-             console.log(BMap, map);
+//             console.log(BMap, map);
           },
           //查看详情
           lookDetail(data){
-            console.log(222,data);
             this.infoWindow.show =true;
             this.infoWindow.info=data;
             this.activeName = data.projectName;
@@ -220,17 +240,6 @@
             this.$nextTick(()=>{
               var win=document.querySelector(".BMap_bubble_title");
               win.title = this.activeName;
-            })
-            if(target=='left'){ //点击的是左侧列表项，则不需要滚动
-              this.map.center={lng: data.lng, lat: data.lat};
-              this.map.zoom = 15;
-              return;
-            }
-            //滚动到指定元素位置
-            this.$nextTick(()=>{
-              var obj=document.querySelector(".active");
-              var scrollTop=obj.offsetTop;
-              this.$refs.box.scrollTop=scrollTop-180;
             })
           },
         }
@@ -241,5 +250,8 @@
 .BMap_bubble_content p{
   height: 30px;
   line-height: 30px;
+}
+.BMap_scaleCtrl div.BMap_scaleTxt{
+  color: #fff!important;
 }
 </style>

@@ -42,6 +42,15 @@
       </div>
       <div class="middle border">
         <box-border></box-border>
+        <div class="legend">
+          <ul>
+            <h4>图例</h4>
+            <li class="province" @click="type('province')"><span>省重点项目:</span><img src="../../assets/images/shenIcon.png" width="16" alt=""></li>
+            <li class="city" @click="type('city')"><span>市重点项目:</span><img src="../../assets/images/shiIcon.png" width="16" alt=""></li>
+            <li class="point" @click="type('point')"><span>"1311"项目:</span><img src="../../assets/images/1311Icon.png" width="16" alt=""></li>
+            <li class="other" @click="type('other')"><span>其他项目:</span><img src="../../assets/images/other.png" width="16" alt=""></li>
+          </ul>
+        </div>
         <map-demos :mapData="projectMap"></map-demos>
       </div>
       <div class="right border">
@@ -69,7 +78,7 @@
   import Histogram from '@/components/Histogram'
   import Histograms from '@/components/Histogram2'
   import PieChart from '@/components/pieChart'
-  import MapDemos from '@/views/mapDemos'
+  import MapDemos from '@/components/mapDemos'
   import {xmgk,getTotalInvestment,getKoujin,getSptotal} from '@/api/ztgk/ztgk'
     export default{
      components: {
@@ -207,6 +216,12 @@
             this.flags = true;
           })
         },
+        type(type){
+          console.log(111,type);
+          if(type == 'province'){
+
+          }
+        }
 
       }
     }
@@ -235,8 +250,42 @@
     float: left;
     background: url(../../assets/images/icon/cardBg.png) no-repeat;
     background-size: cover;
+
   }
   .left .card li span{
     display: block;
+  }
+  .legend{
+    position: absolute;
+    top:10px;
+    left: 10px;
+    z-index: 100;
+    background: #000;
+    padding: 10px 20px;
+    border-radius: 4px;
+  }
+  .legend ul li{
+    cursor: pointer;
+  }
+  .legend img{
+    padding-left: 5px;
+  }
+  .legend span{
+    display: inline-block;
+    width: 95px;
+    text-align: justify;
+    text-align-last: justify;
+  }
+  .province{
+    color: #cc8c30;
+  }
+  .city{
+    color: #1bb4bc;
+  }
+  .point{
+    color: #b152e8;
+  }
+  .other{
+    color: #f0385f;
   }
 </style>

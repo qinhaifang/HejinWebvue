@@ -29,13 +29,11 @@
         }
       },
       created(){
-        console.log(1);
         this.getTjjz()
       },
       methods:{
         getTjjz(){
           tjjz(this.queryParams).then(response => {
-            console.log(response.data.rows)
 //            this.title = response.data.rows[0].title;
             this.content = response.data.rows[0].content;
           })
