@@ -29,7 +29,6 @@
       }
     },
     created(){
-      console.log(1);
       this.getTjjz()
     },
     methods:{
@@ -53,6 +52,9 @@
   .p20{
     padding: 40px;
     text-align:justify;
+  }
+  .hover-row{
+    background: inherit;
   }
 </style>
 

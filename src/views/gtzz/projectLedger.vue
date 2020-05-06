@@ -18,6 +18,7 @@
       </div>
       <div class="right">
         <box-border></box-border>
+        <map-demos :mapData="projectMap"></map-demos>
       </div>
 
 
@@ -28,15 +29,18 @@
 <script type="text/ecmascript-6">
   import BoxBorder from '@/components/boxStyle'
   import {xmtz} from '../../api/gtzz/gtzz'
+  import MapDemos from '@/components/mapDemos'
     export default{
       components:{
-        BoxBorder
+        BoxBorder,
+        MapDemos
       },
       data(){
         return{
           activeName:'',
           loadin:false,
           windowHeight:window.innerHeight-185,
+          projectMap:null,
           tableHeader:[
             {name:'序号',prop:'',width:'50',align:'center'},
             {name:'项目名称',prop:'projectName',width:'',align:'left'},
@@ -58,8 +62,9 @@
           this.loading = true;
           xmtz(this.queryParams).then(response =>{
             this.tableData = response.data.rows;
+            this.projectMap = response.data.rows;
             this.loading = false;
-        })
+          })
         },
         onSubmit() {
           this.getTable();
@@ -97,3 +102,4 @@
     cursor: pointer!important;
   }
 </style>
+

@@ -55,6 +55,7 @@
               login(this.loginForm.username,this.loginForm.password).then(response =>{
                 this.loading = false;
                 localStorage.setItem('token',response.data.token);
+                localStorage.setItem('user',this.loginForm.username);
                 this.$router.push({path:'/'})
               })
 //              this.$store.dispatch("Login",this.loginForm)

@@ -2,6 +2,7 @@
     <div ref="HomeHeader">
       <div class="header center">
         <h3><img :src="logo" width="50px" alt="">河津市重点项目挂图作战调度平台</h3>
+        <div class="logout"><img src="../assets/images/user.png" width="28" alt="">&nbsp;&nbsp;&nbsp;<span>{{userName}}</span></div>
       </div>
       <el-menu
         :default-active="$route.path"
@@ -45,6 +46,7 @@
       props:[],
       data(){
         return{
+          userName:localStorage.getItem('user'),
           logo:require("@/assets/images/logo.png"),
           navList:[
             {
@@ -150,5 +152,14 @@
   }
   .el-menu-item-group ul li{
     text-align: center;
+  }
+  .logout{
+    position: absolute;
+    right: 6%;
+    top: 6px;
+  }
+  .logout span{
+    position: absolute;
+    top: 6px;
   }
 </style>
